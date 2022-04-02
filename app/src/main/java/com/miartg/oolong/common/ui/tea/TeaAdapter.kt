@@ -1,4 +1,4 @@
-package com.miartg.oolong.common.ui
+package com.miartg.oolong.common.ui.tea
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
@@ -9,10 +9,15 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.miartg.oolong.common.tea.Feature
 
 @Composable
-fun <S> Feature<S>.subscribeAsState() : State<S> = stateFlow.collectAsState()
+fun <S> Feature<S>.subscribeAsState(): State<S> = stateFlow.collectAsState()
 
 @Composable
 fun <S> feature(initialState: S) = feature { Feature(initialState) }
+
+@Composable
+operator fun <S> Feature<S>.component1() = subscribeAsState().value
+
+operator fun <S> Feature<S>.component2() = reducer
 
 @Suppress("UNCHECKED_CAST")
 @Composable

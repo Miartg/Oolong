@@ -8,8 +8,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.miartg.oolong.common.ui.feature
-import com.miartg.oolong.common.ui.subscribeAsState
+import com.miartg.oolong.common.ui.tea.component1
+import com.miartg.oolong.common.ui.tea.component2
+import com.miartg.oolong.common.ui.tea.feature
 import com.miartg.oolong.home.presentation.Home.Counter
 import com.miartg.oolong.home.presentation.Home.Counter.onMinusClick
 import com.miartg.oolong.home.presentation.Home.Counter.onPlusClick
@@ -17,9 +18,7 @@ import com.miartg.oolong.home.presentation.Home.Counter.onPlusClick
 
 @Composable
 fun HomeScreen() {
-    val counterFeature = feature(Counter.State(15))
-    val counterReducer = counterFeature.reducer
-    val counterState by counterFeature.subscribeAsState()
+    val (counterState, counterReducer) = feature(Counter.State(15))
     Counter(
         count = counterState.count,
         onPlusClick = counterReducer.onPlusClick(),
