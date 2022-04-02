@@ -11,18 +11,18 @@ import androidx.compose.ui.unit.dp
 import com.miartg.oolong.common.ui.tea.component1
 import com.miartg.oolong.common.ui.tea.component2
 import com.miartg.oolong.common.ui.tea.feature
-import com.miartg.oolong.home.presentation.Home.Counter
-import com.miartg.oolong.home.presentation.Home.Counter.onMinusClick
-import com.miartg.oolong.home.presentation.Home.Counter.onPlusClick
+import com.miartg.oolong.home.presentation.Home
+import com.miartg.oolong.home.presentation.Home.onMinusClick
+import com.miartg.oolong.home.presentation.Home.onPlusClick
 
 
 @Composable
 fun HomeScreen() {
-    val (counterState, counterReducer) = feature(Counter.State(15))
+    val (state, reducer) = feature(Home.State(15))
     Counter(
-        count = counterState.count,
-        onPlusClick = counterReducer.onPlusClick(),
-        onMinusClick = counterReducer.onMinusClick()
+        count = state.count,
+        onPlusClick = reducer.onPlusClick(),
+        onMinusClick = reducer.onMinusClick()
     )
 }
 
