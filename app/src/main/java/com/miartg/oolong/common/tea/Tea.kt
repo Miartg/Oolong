@@ -13,6 +13,7 @@ class Feature<S>(initialState: S) {
 interface Reducer<S> {
     val state: S
     fun update(state: S)
+    fun <Eff : Any, Result : Any> sideEffect(eff: Eff, onResult: (Result) -> Unit)
 }
 
 private class FlowReducer<S>(initialState: S) : Reducer<S> {
@@ -27,6 +28,19 @@ private class FlowReducer<S>(initialState: S) : Reducer<S> {
         mutableStateFlow.update { state }
     }
 
+    override fun <Eff : Any, Result : Any> sideEffect(eff: Eff, onResult: (Result) -> Unit) {
+        // todo run side effect and call on result
+    }
+}
+
+// todo use functions instead Eff type
+interface EffectHandler<Eff : Any, Result : Any> : Disposable {
+    fun setListener(listener: (Result) -> Unit)
+    fun handleEffect(eff: Eff)
+}
+
+interface Disposable {
+    fun dispose()
 }
 
 
