@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "Compose Internals"
+rootProject.name = "Oolong"
 include ':app'
