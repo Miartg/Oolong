@@ -7,18 +7,12 @@ object Counter {
     data class State(val count: Int)
 
     fun Reducer.onMinusClick() = { count: Int ->
-        if (state.canMinus(count)) minus(count)
+        minus(count)
     }
 
     fun Reducer.onPlusClick() = { count: Int ->
-        if (state.canPlus(count)) plus(count)
+        plus(count)
     }
-
-    private fun State.canMinus(count: Int) =
-        this.count - count >= 0
-
-    private fun State.canPlus(count: Int) =
-        this.count + count <= 30
 
     private fun Reducer.minus(count: Int) {
         updateCount(state.count - count)
@@ -29,7 +23,7 @@ object Counter {
     }
 
     private fun Reducer.updateCount(count: Int) {
-        update(state.copy(count = count))
+        if (count in 0..30) update(state.copy(count = count))
     }
 
 }
