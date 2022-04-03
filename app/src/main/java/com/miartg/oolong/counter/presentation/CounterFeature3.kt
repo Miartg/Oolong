@@ -7,9 +7,8 @@ object Counter3 {
 
     data class State(val count: Int)
 
-    fun Reducer3.onMinusClick() = reduce { count: Int -> minus(state, count) }
-
-    fun Reducer3.onPlusClick() = reduce { count: Int -> plus(state, count) }
+    fun Reducer3.onMinusClick() = reduce(::minus)
+    fun Reducer3.onPlusClick() = reduce(::plus)
 
     private fun minus(state: State, count: Int): State =
         updateCount(state, state.count - count)
