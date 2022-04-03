@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
@@ -18,14 +17,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.miartg.oolong.common.tea.Reducer
+import com.miartg.oolong.common.tea.reduce
 import com.miartg.oolong.common.ui.tea.component1
 import com.miartg.oolong.common.ui.tea.component2
 import com.miartg.oolong.common.ui.tea.feature
 import com.miartg.oolong.counter.presentation.Counter
 import com.miartg.oolong.counter.presentation.Counter.onMinusClick
-import com.miartg.oolong.counter.presentation.Counter.onMinusWithDelayClick
 import com.miartg.oolong.counter.presentation.Counter.onPlusClick
-import com.miartg.oolong.counter.presentation.Counter.onPlusWithDelayClick
+import com.miartg.oolong.counter.presentation.Counter2
 
 
 @Composable
@@ -35,8 +35,16 @@ fun CounterScreen() {
         count = state.count,
         onPlusClick = reducer.onPlusClick(),
         onMinusClick = reducer.onMinusClick(),
-        onPlusWithDelayClick = reducer.onPlusWithDelayClick(),
-        onMinusWithDelayClick = reducer.onMinusWithDelayClick()
+    )
+}
+
+@Composable
+fun CounterScreen2() {
+    val (state, feature) = feature(Counter2.State(15))
+    Counter(
+        count = state.count,
+        onPlusClick = { count -> feature.accept(Counter2.Msg.OnPlusClick(count)) },
+        onMinusClick = { count -> feature.accept(Counter2.Msg.OnMinusClick(count)) },
     )
 }
 
@@ -45,8 +53,6 @@ fun Counter(
     count: Int,
     onPlusClick: (count: Int) -> Unit,
     onMinusClick: (count: Int) -> Unit,
-    onPlusWithDelayClick: (count: Int) -> Unit,
-    onMinusWithDelayClick: (count: Int) -> Unit
 ) {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Column(
@@ -75,23 +81,11 @@ fun Counter(
                     Text(text = "+ 5")
                 }
             }
-            Spacer(modifier = Modifier.size(8.dp))
-            Button(
-                modifier = Modifier.fillMaxWidth(),
-                onClick = { onMinusWithDelayClick(10) }
-            ) {
-                Text(text = "- 10 with delay")
-            }
-            Spacer(modifier = Modifier.size(8.dp))
-            Button(
-                modifier = Modifier.fillMaxWidth(),
-                onClick = { onPlusWithDelayClick(10) }
-            ) {
-                Text(text = "+ 10 with delay")
-            }
         }
     }
 }
+
+private fun Reducer<Counter2.State>.accept(msg: Counter2.Msg) = reduce(Counter2::reduce)
 
 @Preview(showBackground = true)
 @Composable
@@ -100,7 +94,5 @@ fun CounterPreview() {
         count = 15,
         onPlusClick = {},
         onMinusClick = {},
-        onPlusWithDelayClick = {},
-        onMinusWithDelayClick = {}
     )
 }
