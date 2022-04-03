@@ -17,8 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.miartg.oolong.common.tea.Reducer
-import com.miartg.oolong.common.tea.reduce
 import com.miartg.oolong.common.ui.tea.component1
 import com.miartg.oolong.common.ui.tea.component2
 import com.miartg.oolong.common.ui.tea.feature
@@ -26,6 +24,7 @@ import com.miartg.oolong.counter.presentation.Counter
 import com.miartg.oolong.counter.presentation.Counter.onMinusClick
 import com.miartg.oolong.counter.presentation.Counter.onPlusClick
 import com.miartg.oolong.counter.presentation.Counter2
+import com.miartg.oolong.counter.presentation.accept
 
 
 @Composable
@@ -84,8 +83,6 @@ fun Counter(
         }
     }
 }
-
-private fun Reducer<Counter2.State>.accept(msg: Counter2.Msg) = reduce(Counter2::reduce)
 
 @Preview(showBackground = true)
 @Composable
