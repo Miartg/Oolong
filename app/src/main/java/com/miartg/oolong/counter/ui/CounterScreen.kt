@@ -24,6 +24,9 @@ import com.miartg.oolong.counter.presentation.Counter
 import com.miartg.oolong.counter.presentation.Counter.onMinusClick
 import com.miartg.oolong.counter.presentation.Counter.onPlusClick
 import com.miartg.oolong.counter.presentation.Counter2
+import com.miartg.oolong.counter.presentation.Counter3
+import com.miartg.oolong.counter.presentation.Counter3.onMinusClick
+import com.miartg.oolong.counter.presentation.Counter3.onPlusClick
 import com.miartg.oolong.counter.presentation.accept
 
 
@@ -44,6 +47,16 @@ fun CounterScreen2() {
         count = state.count,
         onPlusClick = { count -> feature.accept(Counter2.Msg.OnPlusClick(count)) },
         onMinusClick = { count -> feature.accept(Counter2.Msg.OnMinusClick(count)) },
+    )
+}
+
+@Composable
+fun CounterScreen3() {
+    val (state, reducer) = feature(Counter3.State(15))
+    Counter(
+        count = state.count,
+        onPlusClick = reducer.onPlusClick(),
+        onMinusClick = reducer.onMinusClick(),
     )
 }
 
